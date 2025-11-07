@@ -1,0 +1,49 @@
+# Laravel specific
+/vendor/
+/node_modules/
+.env
+.env.*
+.phpunit.result.cache
+Homestead.yaml
+Homestead.json
+auth.json
+npm-debug.log
+yarn-error.log
+
+# Laravel caches & compiled files
+bootstrap/cache/*
+!bootstrap/cache/.gitignore
+storage/*.key
+storage/app/*
+!storage/app/.gitignore
+storage/framework/*
+!storage/framework/.gitignore
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+storage/logs/*
+!storage/logs/.gitignore
+
+# Composer dependencies
+composer.lock
+
+# NPM / Vite build files
+/public/build/
+/public/hot
+/public/storage
+/public/js/
+/public/css/
+/public/mix-manifest.json
+
+# IDE and OS files
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log
+*.cache
+*.bak
+*.tmp

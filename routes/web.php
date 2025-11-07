@@ -1,0 +1,25 @@
+<?php
+
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\TaskController;
+use App\Http\Middleware\CheckAccessTime;
+use Illuminate\Support\Facades\Route;
+
+
+
+Route::prefix('admin')
+    ->name('admin.')
+
+    ->group(function () {
+        Route::resource('posts', AdminPostController::class)->except(['show']);
+    });
+Route::prefix('posts')
+    ->controller(PostController::class)
+    ->name('posts.')
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('/{slug}')->name('show');
+    });
+
+Route::get('post', [PostController::class, 'index'])->name('post');

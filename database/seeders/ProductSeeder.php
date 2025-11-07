@@ -1,0 +1,20 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Product;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class ProductSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        Product::factory(1000)->create();
+        //Muốn chạy cái class này thì phải thêm vào --class=name_class
+        //
+    }
+}
