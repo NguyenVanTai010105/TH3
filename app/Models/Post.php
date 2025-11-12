@@ -23,7 +23,10 @@ class Post extends Model
         'slug',
         'content',
         'status',
-        'published_at',
-
+        'published_at'
     ];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

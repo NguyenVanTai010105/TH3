@@ -36,18 +36,24 @@ class PostController extends Controller
         //
 
         $validate = $request->validate([
-            'title' => 'required',
-            'content' => 'required',
+            'title' => 'required|string|max:20',
+            'content' => 'required|string',
             'status' => 'required',
             'published_at' => 'nullable|date'
 
         ]);
         $validate['slug']  = Str::slug($request->title);
+        $original_slug = $validate['slug'];
+        $count = 1;
+        while (Post::where('slug', $validate['slug'])->exists()) {
+            $validate['slug'] = $original_slug . '-' . $count;
+            $count++;
+        }
         if ($validate['status'] === 'published' && empty($validate['published_at'])) {
-            $validate['published_at'] == now();
+            $validate['published_at'] = now();
         }
         Post::create($validate);
-        return redirect()->route('admin.posts.index')->with('success', 'Đã tạo bài viết mới thành công!');
+        return redirect()->route('admin.posts.index')->with('success_create', 'Đã tạo bài viết mới thành công!');
     }
 
     /**
@@ -86,7 +92,7 @@ class PostController extends Controller
             $validate['published_at'] = now();
         }
         $post->update($validate);
-        return redirect()->route('admin.posts.index')->with('success', 'Thay đổi thành công');
+        return redirect()->route('admin.posts.index')->with('success_edit', 'Thay đổi thành công');
     }
 
     /**
@@ -95,5 +101,8 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('success_delete', 'Xóa thành công');
     }
 }

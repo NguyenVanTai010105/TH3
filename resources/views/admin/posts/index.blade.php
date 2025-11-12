@@ -2,6 +2,20 @@
 
 @section('title', 'Quản lý bài viết')
 
+@if (session('success_create'))
+    <script>
+        alert("{{ session('success_create') }}");
+    </script>
+@elseif(session('success_edit'))
+    <script>
+        alert("{{ session('success_edit') }}");
+    </script>
+@elseif(session('success_delete'))
+    <script>
+        alert("{{ session('success_delete') }}");
+    </script>
+@endif
+    
 @section('content')
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold">Quản lý bài viết</h1>
@@ -22,34 +36,36 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                @forelse($posts as $p)
+                @forelse($posts as $post)
                     <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-2">{{ $p->title }}</td>
-                        <td class="px-4 py-2"><code class="bg-gray-100 px-2 py-1 rounded text-xs">{{ $p->slug }}</code>
+                        <td class="px-4 py-2">{{ $post->title }}</td>
+                        <td class="px-4 py-2"><code class="bg-gray-100 px-2 py-1 rounded text-xs">{{ $post->slug }}</code>
                         </td>
                         <td class="px-4 py-2">
                             <span
                                 class="px-2 py-1 rounded 
-                            {{ $p->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                {{ ucfirst($p->status) }}
+                            {{ $post->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
+                                {{ ucfirst($post->status) }}
                             </span>
                         </td>
-                        <td class="px-4 py-2">{{ $p->published_at ? $p->published_at->format('d/m/Y H:i') : '-' }}</td>
-                        <td class="px-4 py-2">{{ $p->view_count }}</td>
-                        <td class="px-4 py-2 flex gap-2">
-                            <a href="{{ route('admin.posts.edit', $p->id) }}"
+                        <td class="px-4 py-2">{{ $post->published_at ? $post->published_at->format('d/m/Y H:i') : '-' }}
+                        </td>
+                        <td class="px-4 py-2">{{ $post->view_count }}</td>
+                        <td class="px-4 py-2 h-full">
+
+                            <a href="{{ route('admin.posts.edit', $post->id) }}"
                                 class="px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs">Sửa</a>
-                            <form action="{{ route('admin.posts.destroy', $p->id) }}" method="POST"
+                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
                                 onsubmit="return confirm('Bạn có chắc muốn xóa?');" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs"
                                     type="submit">Xóa</button>
                             </form>
-                            <a href="{{ route('posts.show', $p->slug) }}"
-                                class="px-2 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-100 text-xs"
-                                target="_blank">Xem</a>
+
                         </td>
+
+
                     </tr>
                 @empty
                     <tr>

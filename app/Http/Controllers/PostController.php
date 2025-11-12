@@ -14,7 +14,8 @@ class PostController extends Controller
     public function index()
     {
         //
-        return view('posts.index');
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -36,10 +37,20 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post, Request $request)
     {
         //
+        $viewsPost = $request->session()->get('view_post', []);
+        if (!isset($viewsPost[$post->id])) {
+            //$post->increment('view_count');
+            Post::where('id', $post->id)->increment('view_count');
+            $viewsPost[$post->id] = true;
+            $request->session()->put('view_post', $viewsPost);
+        }
+
+        return view('posts.show', compact('post'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

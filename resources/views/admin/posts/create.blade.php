@@ -14,6 +14,9 @@
             <input type="text" name="title" id="title"
                 class="block w-full rounded border border-yellow-500 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2 transition"
                 value="{{ old('title') }}" autofocus required>
+            @error('title')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -21,6 +24,9 @@
             <textarea name="content" id="content" rows="8"
                 class="block w-full rounded border border-yellow-500 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2 transition"
                 required>{{ old('content') }}</textarea>
+            @error('content')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -37,11 +43,12 @@
             <label class="block font-medium mb-1">Ngày xuất bản (tuỳ chọn)</label>
             <input type="datetime-local" name="published_at"
                 class="block w-full rounded border border-yellow-500 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2 transition"
-                value="{{ old('published_at') }}">
+                value="{{ old('published_at', old('status') === 'published' ? now()->format('Y-m-d\TH:i') : '') }}
+                ">
             <small class="text-gray-500 block mt-1">Nếu để trống và chọn "Xuất bản", hệ thống sẽ lấy thời điểm hiện
                 tại.</small>
         </div>
-       
+
 
         <div class="flex items-center gap-3 mt-6!">
             <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Lưu</button>

@@ -17,9 +17,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence(10);
-        $slug = str($title)->trim()
-            ->lower()
-            ->slug();
+        $slug = str($title)->slug();
         $status = $this->faker->randomElement(['draft', 'published']);
         if ($status == 'draft') {
             $published_at = null;
@@ -35,8 +33,6 @@ class PostFactory extends Factory
             'status' => $status,
             'view_count' => $this->faker->randomNumber(2, true),
             'published_at' => $published_at
-
-
         ];
     }
 }
