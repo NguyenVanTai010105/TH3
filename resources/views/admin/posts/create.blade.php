@@ -38,7 +38,22 @@
                 <option value="published" {{ old('status') === 'published' ? 'selected' : '' }}>Xuất bản</option>
             </select>
         </div>
-
+        <div>
+            <label class="block font-medium mb-1">Kho</label>
+            <select name="category"
+                class="block w-full rounded border border-yellow-500  focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-3 py-2 transition"
+                required>
+                <option value="thoi_trang_nam" {{ old('category') === 'Thời trang nam' ? 'selected' : '' }}> Thời trang nam
+                </option>
+                <option value="dien_thoai_va_phu_kien" {{ old('category') === 'Điện thoại và phụ kiện' ? 'selected' : '' }}>
+                    Điện thoại và phụ kiện
+                </option>
+                <option value="thiet_bi_va_dien_tu" {{ old('category') === 'Thiết bị và điện tử' ? 'selected' : '' }}>Thiết
+                    bị và điện tử</option>
+                <option value="may_tinh_va_laptop" {{ old('category') === 'Máy tính và laptop' ? 'selected' : '' }}>Máy
+                    tính và laptop</option>
+            </select>
+        </div>
         <div>
             <label class="block font-medium mb-1">Ngày xuất bản (tuỳ chọn)</label>
             <input type="datetime-local" name="published_at"

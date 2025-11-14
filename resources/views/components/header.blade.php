@@ -14,7 +14,7 @@
 
         <div class="container flex items-center justify-between h-full w-full px-10  ">
             <div class="logo h-12 w-auto ">
-                <a href="{{ route('admin.posts.index') }}"> <img src="{{ asset('images/crocodile.png') }}"
+                <a href="{{ route('posts.index') }}"> <img src="{{ asset('images/crocodile.png') }}"
                         class=" h-full w-auto object-contain" alt="logo"></a>
             </div>
             <div class="navbar flex text-gray-500  items-center justify-center space-x-4">

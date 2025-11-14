@@ -15,7 +15,7 @@
         alert("{{ session('success_delete') }}");
     </script>
 @endif
-    
+
 @section('content')
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-semibold">Quản lý bài viết</h1>
@@ -33,6 +33,8 @@
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Published At</th>
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Lượt xem</th>
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Hành động</th>
+                    <th class="px-4 py-2 text-center font-medium text-gray-700">Kho</th>
+                    <th class="px-4 py-2 text-center font-medium text-gray-700">Tag</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
