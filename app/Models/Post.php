@@ -23,7 +23,8 @@ class Post extends Model
         'slug',
         'content',
         'status',
-        'published_at'
+        'published_at',
+        'category_id'
     ];
     public function getRouteKeyName()
     {
@@ -31,9 +32,9 @@ class Post extends Model
     }
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }

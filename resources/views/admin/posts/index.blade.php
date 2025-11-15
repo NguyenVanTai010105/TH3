@@ -32,9 +32,10 @@
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Trạng thái</th>
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Published At</th>
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Lượt xem</th>
-                    <th class="px-4 py-2 text-center font-medium text-gray-700">Hành động</th>
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Kho</th>
                     <th class="px-4 py-2 text-center font-medium text-gray-700">Tag</th>
+                    <th class="px-4 py-2 text-center font-medium text-gray-700">Hành động</th>
+
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -53,19 +54,33 @@
                         <td class="px-4 py-2">{{ $post->published_at ? $post->published_at->format('d/m/Y H:i') : '-' }}
                         </td>
                         <td class="px-4 py-2">{{ $post->view_count }}</td>
-                        <td class="px-4 py-2 h-full">
-
+                        <td class="p-2 border">
+                            {{ $post->category ? $post->category->name : 'Không có' }}
+                        </td>
+                        <td class="p-2 border">
+                            @foreach ($post->tags as $tag)
+                                <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+                                    {{ $tag->name }}
+                                </span>
+                            @endforeach
+                        </td>
+                        <td class="px-4 py-2 h-full flex gap-2">
                             <a href="{{ route('admin.posts.edit', $post->id) }}"
-                                class="px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs">Sửa</a>
+                                class="flex-1 text-center px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 text-sm font-medium">
+                                Sửa
+                            </a>
+
                             <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
-                                onsubmit="return confirm('Bạn có chắc muốn xóa?');" class="inline">
+                                onsubmit="return confirm('Bạn có chắc muốn xóa?');" class="flex-1">
                                 @csrf
                                 @method('DELETE')
-                                <button class="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs"
-                                    type="submit">Xóa</button>
+                                <button type="submit"
+                                    class="w-full text-center px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 text-sm font-medium">
+                                    Xóa
+                                </button>
                             </form>
-
                         </td>
+
 
 
                     </tr>

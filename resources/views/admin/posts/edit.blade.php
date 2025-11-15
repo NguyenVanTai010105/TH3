@@ -10,7 +10,7 @@
             @csrf
             @method('PUT')
 
-           
+
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Tiêu đề</label>
                 <input type="text" name="title"
@@ -18,7 +18,7 @@
                     value="{{ old('title', $post->title) }}" required>
             </div>
 
-         
+
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Nội dung</label>
                 <textarea name="content" rows="8"
@@ -26,7 +26,7 @@
                     required>{{ old('content', $post->content) }}</textarea>
             </div>
 
-           
+
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Trạng thái</label>
                 <select name="status"
@@ -38,12 +38,38 @@
                 </select>
             </div>
 
+
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Ngày xuất bản (tuỳ chọn)</label>
                 <input type="datetime-local" name="published_at"
                     class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     value="{{ old('published_at', $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : '') }}">
                 <p class="text-xs text-gray-500 mt-1">Nếu để trống và chọn "Xuất bản", hệ thống sẽ lấy thời điểm hiện tại.
+                </p>
+            </div>
+
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Danh mục</label>
+                <select name="category_id"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    required>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Tags (phân tách bằng dấu ,)</label>
+                <input type="text" name="tags"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    value="{{ old('tags', $post->tags->pluck('name')->implode(', ')) }}">
+                <p class="text-xs text-gray-500 mt-1">Nhập nhiều tag cách nhau bằng dấu phẩy. Ví dụ: Laravel, PHP, Database.
                 </p>
             </div>
 

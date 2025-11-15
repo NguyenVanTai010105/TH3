@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -75,5 +77,33 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+    public function byCategory($id)
+    {
+        $category = Category::findOrFail($id);
+
+        $posts = Post::with(['category', 'tags'])
+            ->where('category_id', $id)
+            ->where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->orderByDesc('published_at')
+            ->get();
+
+        return view('posts.index', compact('posts', 'category'));
+    }
+
+    public function byTag($id)
+    {
+        $tag = Tag::findOrFail($id);
+
+        $posts = $tag->posts()
+            ->with(['category', 'tags'])
+            ->where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->orderByDesc('published_at')
+            ->get();
+
+
+        return view('posts.index', compact('posts', 'tag'));
     }
 }

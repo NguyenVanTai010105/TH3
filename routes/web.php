@@ -17,11 +17,16 @@ Route::prefix('admin')
         Route::resource('categories', AdminCategoryController::class)->except(['show']);
     });
 
+// Lọc bài viết theo category
+
 
 Route::prefix('posts')
     ->controller(PostController::class)
     ->name('posts.')
     ->group(function () {
         Route::get('', 'index')->name('index');
+        Route::get('/category/{id}', 'byCategory')->name('byCategory');
+        // Lọc bài viết theo tag
+        Route::get('/tag/{id}',  'byTag')->name('byTag');
         Route::get('/{post}', 'show')->name('show');
     });
