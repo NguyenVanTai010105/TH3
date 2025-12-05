@@ -4,6 +4,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAccessTime;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,9 @@ Route::prefix('posts')
     ->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('/category/{id}', 'byCategory')->name('byCategory');
-        // Lọc bài viết theo tag
+        
         Route::get('/tag/{id}',  'byTag')->name('byTag');
         Route::get('/{post}', 'show')->name('show');
     });
+Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::get('/register', [UserController::class, 'register'])->name('register');

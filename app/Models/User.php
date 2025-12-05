@@ -13,5 +13,10 @@ class User extends Model
     {
         return UserFactory::new();
     }
+    protected $fillable = [
+        'username',
+        'email',
+        'password'
+    ];
     //
 }
